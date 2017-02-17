@@ -155,8 +155,8 @@ public class GmailRegistrationPage {
 
     public void idGenderInitialization() {
         idGender = new HashMap<String, String>();
-        idGender.put("Женский", ":d");
-        idGender.put("Мужской", ":e");
+        idGender.put("Женский", ":e");
+        idGender.put("Мужской", ":f");
         idGender.put("Другой", ":g");
         idGender.put("Не указан", ":h");
     }
