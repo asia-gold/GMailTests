@@ -5,7 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
+
+import java.util.HashMap;
 
 /**
  * Created by Asia on 16.02.2017.
@@ -43,6 +44,8 @@ public class GmailRegistrationPage {
     private WebElement emailTextField;
 
     private final WebDriver driver;
+    private HashMap<String, String> idMonth;
+    private HashMap<String, String> idGender;
     private static final String GMAIL_REG_PAGE = "Зарегистрируйтесь в Google";
 
     public GmailRegistrationPage(WebDriver driver) {
@@ -79,7 +82,11 @@ public class GmailRegistrationPage {
     }
 
     public void selectBirthMonth(String month) {
+        idMonthInitialization();
+        String id = idMonth.get(month);
         driver.findElement(By.id(":0")).click();
+        driver.findElement(By.id(id)).click();
+        /* old version
         if(month=="10") {
             driver.findElement(By.id(":a")).click();
         } else {
@@ -92,7 +99,7 @@ public class GmailRegistrationPage {
                     driver.findElement(By.id(":" + month)).click();
                 }
             }
-        }
+        }*/
     }
 
     public void typeBirthYear(String year) {
@@ -100,7 +107,11 @@ public class GmailRegistrationPage {
     }
 
     public void selectGender(String gender) {
+        idGenderInitialization();
+        String id = idGender.get(gender);
         driver.findElement(By.id(":d")).click();
+        driver.findElement(By.id(id)).click();
+        /* old version
         if(gender=="Женский") {
             driver.findElement(By.id(":e")).click();
         } else {
@@ -115,7 +126,7 @@ public class GmailRegistrationPage {
                     }
                 }
             }
-        }
+        }*/
     }
 
     public void typeRecoveryPhoneNumber(String phone) {
@@ -124,5 +135,29 @@ public class GmailRegistrationPage {
 
     public void typeRecoveryEmailAddress(String email) {
         emailTextField.sendKeys(email);
+    }
+
+    public void idMonthInitialization() {
+        idMonth = new HashMap<String, String>();
+        idMonth.put("1", ":1");
+        idMonth.put("2", ":2");
+        idMonth.put("3", ":3");
+        idMonth.put("4", ":4");
+        idMonth.put("5", ":5");
+        idMonth.put("6", ":6");
+        idMonth.put("7", ":7");
+        idMonth.put("8", ":8");
+        idMonth.put("9", ":9");
+        idMonth.put("10", ":a");
+        idMonth.put("11", ":b");
+        idMonth.put("12", ":c");
+    }
+
+    public void idGenderInitialization() {
+        idGender = new HashMap<String, String>();
+        idGender.put("Женский", ":d");
+        idGender.put("Мужской", ":e");
+        idGender.put("Другой", ":g");
+        idGender.put("Не указан", ":h");
     }
 }
