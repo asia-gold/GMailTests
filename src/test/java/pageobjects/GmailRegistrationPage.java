@@ -1,5 +1,6 @@
 package pageobjects;
 
+import objects.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -47,94 +48,66 @@ public class GmailRegistrationPage {
     private HashMap<String, String> idMonth;
     private HashMap<String, String> idGender;
     private static final String GMAIL_REG_PAGE = "Зарегистрируйтесь в Google";
+    private User user;
 
-    public GmailRegistrationPage(WebDriver driver) {
+    public GmailRegistrationPage(WebDriver driver, User user) {
         if(!GMAIL_REG_PAGE.equals(driver.getTitle())) {
             System.out.println(driver.getTitle());
             throw new IllegalStateException("This is not a Gmail Registration Page");
         }
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        this.user = user;
     }
 
-    public void typeFirstName(String firstName) {
-        firstNameTextField.sendKeys(firstName);
+    public void typeFirstName() {
+        firstNameTextField.sendKeys(user.getFirstName());
     }
 
-    public void typeLastName(String lastName) {
-        lastNameTextField.sendKeys(lastName);
+    public void typeLastName() {
+        lastNameTextField.sendKeys(user.getLastName());
     }
 
-    public void typeGmailAddress(String gmailAddress) {
-        gmailAddressTextField.sendKeys(gmailAddress);
+    public void typeGmailAddress() {
+        gmailAddressTextField.sendKeys(user.getGmailAddress());
     }
 
-    public void typePassword(String password) {
-        passwordTextField.sendKeys(password);
+    public void typePassword() {
+        passwordTextField.sendKeys(user.getPassword());
     }
 
-    public void typePasswordAgain(String passwordAgain) {
-        passwordAgainTextField.sendKeys(passwordAgain);
+    public void typePasswordAgain() {
+        passwordAgainTextField.sendKeys(user.getPasswordAgain());
     }
 
-    public void typeBirthDay(String day) {
-        birthDayTextField.sendKeys(day);
+    public void typeBirthDay() {
+        birthDayTextField.sendKeys(user.getDay());
     }
 
-    public void selectBirthMonth(String month) {
+    public void selectBirthMonth() {
         idMonthInitialization();
-        String id = idMonth.get(month);
+        String id = idMonth.get(user.getMonth());
         driver.findElement(By.id(":0")).click();
         driver.findElement(By.id(id)).click();
-        /* old version
-        if(month=="10") {
-            driver.findElement(By.id(":a")).click();
-        } else {
-            if(month=="11") {
-                driver.findElement(By.id(":b")).click();
-            } else {
-                if(month == "12") {
-                    driver.findElement(By.id(":c")).click();
-                } else {
-                    driver.findElement(By.id(":" + month)).click();
-                }
-            }
-        }*/
     }
 
-    public void typeBirthYear(String year) {
-        birthYearTextField.sendKeys(year);
+    public void typeBirthYear() {
+        birthYearTextField.sendKeys(user.getYear());
     }
 
-    public void selectGender(String gender) {
+    public void selectGender() {
         idGenderInitialization();
-        String id = idGender.get(gender);
+        String id = idGender.get(user.getGender());
         driver.findElement(By.id(":d")).click();
         driver.findElement(By.id(id)).click();
-        /* old version
-        if(gender=="Женский") {
-            driver.findElement(By.id(":e")).click();
-        } else {
-            if(gender=="Мужской") {
-                driver.findElement(By.id(":f")).click();
-            } else {
-                if(gender=="Другой") {
-                    driver.findElement(By.id(":g")).click();
-                } else {
-                    if(gender=="Не указан") {
-                        driver.findElement(By.id(":h")).click();
-                    }
-                }
-            }
-        }*/
     }
 
-    public void typeRecoveryPhoneNumber(String phone) {
-        phoneTextField.sendKeys(phone);
+    public void typeRecoveryPhoneNumber() {
+        phoneTextField.sendKeys(user.getPhone());
     }
 
-    public void typeRecoveryEmailAddress(String email) {
-        emailTextField.sendKeys(email);
+    public void typeRecoveryEmailAddress() {
+        emailTextField.sendKeys(user.getEmail());
     }
 
     public void idMonthInitialization() {

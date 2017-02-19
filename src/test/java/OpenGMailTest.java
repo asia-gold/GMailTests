@@ -1,3 +1,4 @@
+import objects.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,32 +28,11 @@ public class OpenGMailTest {
     private GMailHomePage gmailHomePage;
     private GmailRegistrationPage gmailRegistrationPage;
     private static final String BASE_URL = "https://www.google.com.ua/";
-
-    private String firstName;
-    private String lastName;
-    private String gmailAddress;
-    private String password;
-    private String passwordAgain;
-    private String day;
-    private String month;
-    private String year;
-    private String gender;
-    private String phone;
-    private String email;
+    private User user;
 
     public OpenGMailTest(String firstName, String lastName, String gmailAddress, String password, String passwordAgain,
                          String day, String month, String year, String gender, String phone, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gmailAddress = gmailAddress;
-        this.password = password;
-        this.passwordAgain = passwordAgain;
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.gender = gender;
-        this.phone = phone;
-        this.email = email;
+        user = new User(firstName, lastName, gmailAddress, password, passwordAgain, day, month, year, gender, phone, email);
     }
 
     @Before
@@ -76,7 +56,7 @@ public class OpenGMailTest {
                 {"TestFirstName", "TestLastName", "test", "testpassword", "testpassword", "1", "1", "1989", "Женский",
                 "950000000", "test@gmail.com"},
                 //{"FirstName", "LastName", "test", "password", "password", "1", "1", "1989", "Мужской",
-                 //       "950000000", "test@gmail.com"},
+                //"950000000", "test@gmail.com"},
         };
         return Arrays.asList(data);
     }
@@ -90,24 +70,24 @@ public class OpenGMailTest {
         assertEquals(gmailHomePage.getGmailHomeTitle(), driver.getTitle());
         gmailHomePage.clickCreateAccountLink();
         System.out.println(driver.getTitle());
-        gmailRegistrationPage = new GmailRegistrationPage(driver);
+        gmailRegistrationPage = new GmailRegistrationPage(driver, user);
         enterDataInFields();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
     public void enterDataInFields() {
-        gmailRegistrationPage.typeFirstName(firstName);
-        gmailRegistrationPage.typeLastName(lastName);
-        gmailRegistrationPage.typeGmailAddress(gmailAddress);
-        gmailRegistrationPage.typePassword(password);
-        gmailRegistrationPage.typePasswordAgain(passwordAgain);
-        gmailRegistrationPage.typeBirthDay(day);
-        gmailRegistrationPage.selectBirthMonth(month);
-        gmailRegistrationPage.typeBirthYear(year);
+        gmailRegistrationPage.typeFirstName();
+        gmailRegistrationPage.typeLastName();
+        gmailRegistrationPage.typeGmailAddress();
+        gmailRegistrationPage.typePassword();
+        gmailRegistrationPage.typePasswordAgain();
+        gmailRegistrationPage.typeBirthDay();
+        gmailRegistrationPage.selectBirthMonth();
+        gmailRegistrationPage.typeBirthYear();
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("window.scrollBy(0,350)");
-        gmailRegistrationPage.selectGender(gender);
-        gmailRegistrationPage.typeRecoveryPhoneNumber(phone);
-        gmailRegistrationPage.typeRecoveryEmailAddress(email);
+        gmailRegistrationPage.selectGender();
+        gmailRegistrationPage.typeRecoveryPhoneNumber();
+        gmailRegistrationPage.typeRecoveryEmailAddress();
     }
 }
